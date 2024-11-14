@@ -1,0 +1,19 @@
+local UserInputService = game:GetService("UserInputService")
+
+local keybindsDisabled = true  -- Set this to true to disable keys 2 and 4 immediately
+
+-- Function to disable keybinds 2 and 4
+local function disableKeybinds(input, gameProcessedEvent)
+    if gameProcessedEvent then return end
+
+    if keybindsDisabled then
+        if input.KeyCode == Enum.KeyCode.Two or input.KeyCode == Enum.KeyCode.Four then
+            return Enum.ContextActionResult.Sink  -- Block the key press
+        end
+    end
+    return Enum.ContextActionResult.Pass
+end
+
+-- Disable keybinds 2 and 4 when they are pressed
+local actionName = "DisableKeybinds"
+game:GetService("ContextActionService"):BindAction(actionName, disableKeybinds, false, Enum.KeyCode.Two, Enum.KeyCode.Four)
